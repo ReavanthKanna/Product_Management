@@ -6,6 +6,8 @@ const projectRoutes = require('./routes/projectRoutes');
 const stakeholderRoutes = require('./routes/stakeholderRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const riskRoutes = require('./routes/riskRoutes');
+const changeRoutes = require('./routes/changeRoutes');
+const supportRoutes = require('./routes/supportRoutes');
 
 const app = express();
 app.use(express.json());
@@ -14,6 +16,10 @@ app.use('/api/projects',projectRoutes);
 app.use('/api/stakeholders', stakeholderRoutes);
 app.use('/api/tasks',taskRoutes);
 app.use('/api/risks', riskRoutes);
+app.use('/api/changes', changeRoutes);
+app.use('/api/support', supportRoutes);
+
+
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
