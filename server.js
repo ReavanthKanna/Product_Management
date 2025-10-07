@@ -1,4 +1,4 @@
-require('dotenv').config();
+const dotenv=require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
@@ -11,8 +11,15 @@ const supportRoutes = require('./routes/supportRoutes');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+dotenv.config();
 app.use(express.json());
+app.use(cors({
+  origin: (origin, callback) => {
+    callback(null, true); // allow all origins dynamically
+  },
+  credentials: true,
+}));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/projects',projectRoutes);
 app.use('/api/stakeholders', stakeholderRoutes);
@@ -23,10 +30,7 @@ app.use('/api/support', supportRoutes);
 
 
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
   console.log("✅ MongoDB connected successfully!");
   app.listen(3000, () => console.log("🚀 Server running on port 3000"));
