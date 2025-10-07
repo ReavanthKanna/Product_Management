@@ -8,8 +8,10 @@ const taskRoutes = require('./routes/taskRoutes');
 const riskRoutes = require('./routes/riskRoutes');
 const changeRoutes = require('./routes/changeRoutes');
 const supportRoutes = require('./routes/supportRoutes');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/projects',projectRoutes);
